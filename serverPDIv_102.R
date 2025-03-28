@@ -543,8 +543,6 @@ server <- function(input, output, session) {
                   heights = c(3, 1.8), guides = "collect")
      return(plot_final)
   })
-  
-  
 } # fin server.
 
 

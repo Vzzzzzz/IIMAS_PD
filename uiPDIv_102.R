@@ -182,7 +182,6 @@ ui <- page_fillable(
                                   step = 0.1) 
     ),
     
-    
     #### S E L E C C I O N   F U N C I Ó N   M E D I C I Ó N. #################
     selectizeInput(inputId = "transformacion", 
                    label = "Transformación",
