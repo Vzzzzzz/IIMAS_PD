@@ -44,11 +44,9 @@ server <- function(input, output, session) {
       "tau" = list(rango = c(0.001, NA), 
                    mensaje = "El valor del parámetro debe ser mayor a cero"),
       "theta" = list(rango = c(0.001, 0.999), 
-                     mensaje = "El valor del parámetro debe estar en el intervalo (0,1)"),
-      "min_ts" = list(rango = c(NA, input$max_ts), 
                       mensaje = "El valor del parámetro debe ser menor al máximo del intervalo"),
-      "max_ts" = list(rango = c(input$min_ts, NA),
-                      mensaje = "El valor del parámetro debe ser mayor al mínimo del intervalo"),
+      "sigma_t" = list(rango = c(0.001, NA),
+                      mensaje = "El valor del parámetro debe ser mayor a cero"),
       "min_ta" = list(rango = c(NA, input$max_ta), 
                       mensaje = "El valor del parámetro debe ser menor al máximo del intervalo"),
       "max_ta" = list(rango = c(input$min_ta, NA), 
@@ -107,7 +105,7 @@ server <- function(input, output, session) {
     "T-Student (grados libertad)" = lista_funciones[c(1,2,4)],
     "Cauchy (locación, escala)" = lista_funciones[c(1,2,4)],
     "Bernoulli (probabilidad éxito)" = lista_funciones[c(1,2,4,5)],
-    "Triangular (mínimo, máximo)" = lista_funciones[c(1,2,4)],
+    "Triangular (media, desv. estándar)" = lista_funciones[c(1,2,4)],
     "Triangular (mínimo, máximo, moda)" = lista_funciones[c(1,2,4)]
   )
   # Actualizar menu de funciones disponibles.
@@ -184,11 +182,11 @@ server <- function(input, output, session) {
                 "Bernoulli (probabilidad éxito)" = rbinom(n = input$muestra,
                                      size = 1,
                                      prob = input$theta),
-                "Triangular (mínimo, máximo)" = rtri(
+                "Triangular (media, desv. estándar)" = rtri(
                   n = input$muestra, 
-                  min = input$min_ts, 
-                  max = input$max_ts, 
-                  mode = (input$min_ts + input$max_ts)/2
+                  min = input$mu_t - (sqrt(24) * input$sigma_t)/2 , 
+                  max = input$mu_t + (sqrt(24) * input$sigma_t)/2, 
+                  mode = input$mu_t
                   ),
                 "Triangular (mínimo, máximo, moda)" = rtri(
                   n = input$muestra, 
@@ -209,7 +207,7 @@ server <- function(input, output, session) {
                       "T-Student (grados libertad)" = 0,
                       "Cauchy (locación, escala)" = median(X),
                       "Bernoulli (probabilidad éxito)" = input$theta,
-                      "Triangular (mínimo, máximo)" = (input$min_ts + input$max_ts)/2,
+                      "Triangular (media, desv. estándar)" = input$mu_t,
                       "Triangular (mínimo, máximo, moda)" = (input$min_ta + input$max_ta + input$moda_ta)/3
                       )
     # Aplicación de transformación a X.

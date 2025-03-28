@@ -13,12 +13,13 @@ library(shiny)
 library(bslib)
 
 # Vector con nombres de distribuciones.
-lista_distribuciones <- c("Uniforme (mínimo, máximo)", "Uniforme (media, desv. estándar)", 
-                          "Normal (media, desv. estándar)", "Exponencial (tasa)", 
+lista_distribuciones <- c("Normal (media, desv. estándar)","Uniforme (mínimo, máximo)",
+                          "Uniforme (media, desv. estándar)", "Triangular (mínimo, máximo, moda)",
+                          "Triangular (media, desv. estándar)", "Exponencial (tasa)", 
                           "Gamma (forma, escala)", "Beta (forma 1, forma 2)", 
                           "Chi-cuadrada (grados libertad)", "T-Student (grados libertad)", 
-                          "Cauchy (locación, escala)", "Bernoulli (probabilidad éxito)", 
-                          "Triangular (mínimo, máximo)", "Triangular (mínimo, máximo, moda)")
+                          "Cauchy (locación, escala)", "Bernoulli (probabilidad éxito)" 
+                          )
 
 # Slider para determinar procentaje del intervalo de cobertura.
 slider_confianza <- sliderInput(inputId = "coberturaS",
@@ -37,6 +38,7 @@ ui <- page_fillable(
   title = "IIMAS. App de propagación de distribución. Metrología",
   theme = bs_theme(bootswatch = "zephyr"),
   fillable_mobile = TRUE,
+  withMathJax(),
   layout_sidebar(sidebar = sidebar(
     
     #### S E L E C C I O N   D I S T R I B U C I O N   X. #####################
@@ -152,15 +154,16 @@ ui <- page_fillable(
                                   max = 0.999,
                                   step = 0.1) 
     ),
-    # Parametros distribución Triangular (mínimo, máximo).
-    conditionalPanel(condition = "input.distribucionX == 'Triangular (mínimo, máximo)'",
-                     numericInput(inputId = "min_ts",
-                                  label = "Mínimo",
+    # Parametros distribución Triangular (media, desv. estándar).
+    conditionalPanel(condition = "input.distribucionX == 'Triangular (media, desv. estándar)'",
+                     numericInput(inputId = "mu_t",
+                                  label = "Media",
                                   value = 0,
-                                  step = 1),
-                     numericInput(inputId = "max_ts",
-                                  label = "Máximo",
+                                  step = 0.1),
+                     numericInput(inputId = "sigma_t",
+                                  label = "Desviación estándar",
                                   value = 1,
+                                  min = 0.001,
                                   step = 1) 
     ),
     # Parametros distribución Triangular (mínimo, máximo, moda).
@@ -191,16 +194,16 @@ ui <- page_fillable(
     # Parámetros función lineal ax + b.
     conditionalPanel(condition = "input.transformacion == 'Lineal a*x + b'",
                      numericInput(inputId = "pendiente",
-                                  label = "Pendiente a",
+                                  label = "Pendiente: \\(a\\)",
                                   value = 1),
                      numericInput(inputId = "ordenada",
-                                  label = "Ordenada al origen b",
+                                  label = "Ordenada al origen: \\(b\\)",
                                   value = 0)
     ),
     # Parámetros función potencia x^n.
     conditionalPanel(condition = "input.transformacion == 'Potencia x^n'",
                      numericInput(inputId = "elevar",
-                                  label = "Potencia n",
+                                  label = "Potencia: \\(n\\)",
                                   value = 2,
                                   min = 1,
                                   step = 1)
@@ -208,7 +211,7 @@ ui <- page_fillable(
     # Parámetros función raíz x^(1/n).
     conditionalPanel(condition = "input.transformacion == 'Raíz x^(1/n)'",
                      numericInput(inputId = "bajar",
-                                  label = "Raíz n",
+                                  label = "Raíz: \\(n\\)",
                                   value = 2,
                                   min = 1,
                                   step = 1)
