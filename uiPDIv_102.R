@@ -239,7 +239,7 @@ ui <- page_fillable(
     actionButton(inputId = "inicio", 
                  label = "Iniciar simulación", 
                  class = 'btn btn-primary btn-lg'),
-    "IIMAS. App de propagación de distribución. Metrología v1.0.2"
+    "$$\\pi\\cdot MC\\:\\: v1.0.2$$"
   ),#termina sidebar.
   layout_columns(
     col_widths = c(7,5),
