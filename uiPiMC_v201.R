@@ -18,5 +18,7 @@ ui <- page_navbar(
     opciones_generales
   ),
   nav_panel(title = "PiMC-e", panel_pagina_1),
-  nav_panel(title = "PiMC-mv", panel_pagina_2)
+  nav_panel(title = "PiMC-mv", panel_pagina_2),
+  nav_spacer(),
+  nav_menu(title = "Script", nav_item(link_github))
 )

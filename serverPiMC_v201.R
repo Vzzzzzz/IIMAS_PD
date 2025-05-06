@@ -233,7 +233,7 @@ server <- function(input, output, session) {
     req(pagina() == 'PiMC-e')
     # Mensaje de resultado positivo.
     if (input$distribucionX1 == "norm") {
-      value_box(title = "¿X se distribuye normal?",
+      value_box(title = "¿Se distribuye normal?",
                 value = "Sí",
                 max_height = "115px",
                 min_height = "90px",
@@ -242,7 +242,7 @@ server <- function(input, output, session) {
                 class = "text-success")
     }
     else {
-      value_box(title = "¿X se distribuye normal?",
+      value_box(title = "¿Se distribuye normal?",
                 value = "No",
                 max_height = "115px",
                 min_height = "90px",
@@ -561,7 +561,7 @@ server <- function(input, output, session) {
     hm_plot <- ggplot(data = df, aes(x = Var1, y = Var2, fill = value)) +
       geom_tile(color = "white", lwd = 1) + theme_minimal() + coord_fixed() + 
       labs(fill = "Correlación") +
-      scale_fill_gradient(high = "#3459E6", low = "#E9EEFF") +
+      scale_fill_gradient2(high = "#3459E6", low = "#D5392E", limits = c(-1, 1)) +
       theme(axis.title.x = element_blank(),
             axis.text.x = element_text(size = 14, face = "bold"),
             axis.title.y = element_blank(),
@@ -576,7 +576,7 @@ server <- function(input, output, session) {
     hm_plot <- ggplot(data = df, aes(x = Var1, y = Var2, fill = value)) +
       geom_tile(color = "white", lwd = 1) + theme_minimal() + coord_fixed() +
       labs(fill = "Correlación") +
-      scale_fill_gradient(high = "#3459E6", low = "#E9EEFF") +
+      scale_fill_gradient2(high = "#3459E6", low = "#D5392E", limits = c(-1, 1)) +
       theme(axis.title.x = element_blank(),
             axis.text.x = element_text(size = 14, face = "bold"),
             axis.title.y = element_blank(),

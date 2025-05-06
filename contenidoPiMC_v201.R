@@ -119,7 +119,8 @@ diccionario_parametros <- list(
     list(parametro = "theta", rango = c(0.001, 0.999), 
          mensaje = "El valor del parámetro debe ser menor al máximo del intervalo")
   ))
-
+# Link github
+link_github <- tags$a(shiny::icon("github"), "GitHub", href = "https://github.com/Vzzzzzz/IIMAS_PiMC", target = "_blank")
 ###############################################################################
 #### O P C I O N E S.
 ###############################################################################
@@ -484,7 +485,7 @@ resultado_pvalue <- function(p_value) {
   # Mensaje de resultado negativo.
   if (p_value < 0.05) {
     resultado <- tagList(
-      value_box(title = "¿Y se distribuye normal?",
+      value_box(title = "¿Se distribuye normal?",
                 value = "No",
                 max_height = "115px",
                 min_height = "90px",
@@ -498,7 +499,7 @@ resultado_pvalue <- function(p_value) {
   # Mensaje de resultado positivo.
   else {
     resultado <- tagList(
-      value_box(title = "¿Y se distribuye normal?",
+      value_box(title = "¿Se distribuye normal?",
                 value = "Sí",
                 max_height = "115px",
                 min_height = "90px",
